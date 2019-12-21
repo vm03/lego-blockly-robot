@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blockly Robot control</title>
+  <script src="blockly_compressed.js"></script>
+  <script src="blocks_compressed.js"></script>
+  <script src="msg/js/ru.js"></script>
+  <script src="python_compressed.js"></script>
+  <script src="javascript_compressed.js"></script>
+  <script src="my.js"></script>
+  <script src="jquery-3.4.1.min.js"></script>
+  <style>
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+    }
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }
+  </style>
+</head>
+<body>
+
+  <p>Blockly Robot control</p>
+  <div id="blocklyDiv" style="height: 380px; width: 800px;"></div>
+
+  <p>
+    <button onclick="RunCode()" id="runButton">Запустить</button>
+  </p>
+  <div id="outDiv" style="height: 80px; width: 800px;" ></div>
+
+  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+    <block type="controls_repeat"></block>
+    <block type="motor"></block>
+    <block type="speed"></block>
+    <block type="stop"></block>
+  </xml>
+
+  <script>
+
+    var demoWorkspace = Blockly.inject('blocklyDiv',
+        {media: '../../media/',
+         toolbox: document.getElementById('toolbox')});
+
+
+            $(function()
+            {
+                $('#runButton').click(function(){
+      $("#outDiv").html('');
+      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+      var code = Blockly.Python.workspaceToCode(demoWorkspace);
+
+      if (code) {
+          var dataObjectBase64 = 'data=' + btoa(code);
+
+                    $.ajax({
+                        url: "/cgi-bin/hello.py",
+                        type: "post",
+                        datatype: "html",
+                        data: dataObjectBase64,
+                        success: function(data){
+                            $("#outDiv").html(data);
+                        }
+                    });
+                  }
+                });
+            });
+
+  </script>
+
+</body>
+</html>
