@@ -1,0 +1,31 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+
+echo 38 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio38/direction
+echo 0 > /sys/class/gpio/gpio38/value
+
+echo 39 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio39/direction
+echo 0 > /sys/class/gpio/gpio39/value
+
+echo 41 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio41/direction
+echo 0 > /sys/class/gpio/gpio41/value
+
+echo 42 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio42/direction
+echo 0 > /sys/class/gpio/gpio42/value
+
+echo 0 > /sys/class/pwm/pwmchip0/export
+echo 100000 > /sys/class/pwm/pwmchip0/pwm0/period
+echo 100000 > /sys/class/pwm/pwmchip0/pwm0/duty_cycle
+echo 0 > /sys/class/pwm/pwmchip0/pwm0/enable
+
+echo 2 > /sys/class/pwm/pwmchip0/export
+echo 100000 > /sys/class/pwm/pwmchip0/pwm2/period
+echo 100000 > /sys/class/pwm/pwmchip0/pwm2/duty_cycle
+echo 0 > /sys/class/pwm/pwmchip0/pwm2/enable
+
+
+exit 0
